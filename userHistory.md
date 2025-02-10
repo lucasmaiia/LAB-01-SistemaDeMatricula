@@ -1,4 +1,3 @@
-# Histórias de Usuário do Sistema de Matrículas da Universidade
 
 # Histórias de Usuário do Sistema de Matrículas da Universidade
 
