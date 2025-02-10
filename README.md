@@ -40,6 +40,13 @@ Este projeto tem como objetivo informatizar o sistema de matrículas de uma univ
 - **Banco de Dados:** 
 - **Autenticação:** 
 
+
+## Casos de Uso 
+
+
+![DCU_SistemaMatricula (1)](https://github.com/user-attachments/assets/a06377a8-8d10-4327-b617-11c558a82d7d)
+
+
 ## Instalação
 
 
