@@ -1,6 +1,5 @@
 #
 ![COMPILER (1)](https://github.com/user-attachments/assets/0c835aa3-c989-4c58-a876-9b9675be4453)
-# 
 
 Este projeto tem como objetivo informatizar o sistema de matrículas de uma universidade, permitindo que alunos, professores e a secretaria da universidade possam gerenciar suas atividades acadêmicas de forma eficiente. O sistema abrange funcionalidades desde a geração de currículos até a consulta de alunos matriculados em disciplinas.
 
