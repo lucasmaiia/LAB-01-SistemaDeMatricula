@@ -37,7 +37,6 @@ Este projeto tem como objetivo informatizar o sistema de matrículas de uma univ
 - **Frontend:**
 - **Backend:** 
 - **Banco de Dados:** 
-- **Autenticação:** 
 
 ## Casos de Uso 
 
