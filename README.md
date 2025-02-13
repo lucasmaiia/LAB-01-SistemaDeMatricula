@@ -2,8 +2,6 @@
 ![COMPILER (1)](https://github.com/user-attachments/assets/0c835aa3-c989-4c58-a876-9b9675be4453)
 # 
 
-## Descrição
-
 Este projeto tem como objetivo informatizar o sistema de matrículas de uma universidade, permitindo que alunos, professores e a secretaria da universidade possam gerenciar suas atividades acadêmicas de forma eficiente. O sistema abrange funcionalidades desde a geração de currículos até a consulta de alunos matriculados em disciplinas.
 
 ## Funcionalidades
@@ -42,13 +40,7 @@ Este projeto tem como objetivo informatizar o sistema de matrículas de uma univ
 - **Banco de Dados:** 
 - **Autenticação:** 
 
-
 ## Casos de Uso 
 
 ![DCU_SistemaMatricula](https://github.com/user-attachments/assets/dde4bffa-4c81-4ac8-b1cc-6f8a28f3a753)
-
-
-
-## Instalação
-
 
