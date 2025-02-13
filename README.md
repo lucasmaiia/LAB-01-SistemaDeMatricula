@@ -1,7 +1,6 @@
-
-![COMPILER](https://github.com/user-attachments/assets/b5e422bf-d139-41c2-b676-9d2c9327f0aa)
-
-# PUCTriculas
+#
+https://github.com/user-attachments/assets/58477a02-8d42-4168-80d1-192dd97be114
+# 
 
 ## Descrição
 
