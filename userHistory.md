@@ -16,7 +16,7 @@
 | 11     | Professor            | Como professor, eu quero acessar o sistema para saber quais alunos estão matriculados nas minhas disciplinas, para que eu possa planejar minhas aulas de acordo.    |
 | 12     | Professor            | Como professor, eu quero inserir as notas dos alunos no sistema, para que eles possam acompanhar seu desempenho acadêmico.                                            |
 | 13     | Professor            | Como professor, eu quero consultar os horários das disciplinas que leciono, para que eu possa me organizar e preparar minhas aulas.                                    |
-| 14     | Administrador| Como sistema de matrículas, eu quero notificar o sistema de cobranças sobre as matrículas realizadas, para que os alunos sejam cobrados pelas disciplinas matriculadas.|
+| 14     | Sistema de cobranças| Como sistema de cobranças, eu quero receber notificações do sistema de matrículas sobre as matrículas realizadas, para que eu possa gerar cobranças corretas para os alunos pelas disciplinas em que se matricularam.|
 | 15     | Usuário | Como usuário do sistema, eu quero validar meu login utilizando minha senha, para que eu possa acessar minhas informações de forma segura.                             |
 
 
