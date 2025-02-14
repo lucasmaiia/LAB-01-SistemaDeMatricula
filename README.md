@@ -39,7 +39,7 @@ Este projeto tem como objetivo informatizar o sistema de matrículas de uma univ
 
 ## Casos de Uso 
 
-![DCU_SistemaMatricula](https://github.com/user-attachments/assets/dde4bffa-4c81-4ac8-b1cc-6f8a28f3a753)
+![DCU_SistemaMatricula]([https://github.com/user-attachments/assets/dde4bffa-4c81-4ac8-b1cc-6f8a28f3a753](https://github.com/lucasmaiia/LAB-01-SistemaDeMatricula/blob/main/DCU_SistemaMatricula.jpg))
 
 
 # Histórias de Usuário PUCTriculas
