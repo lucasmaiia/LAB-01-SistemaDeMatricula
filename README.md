@@ -59,5 +59,6 @@ Este projeto tem como objetivo informatizar o sistema de matrículas de uma univ
 | 11     | Professor            | Como professor, eu quero acessar o sistema para saber quais alunos estão matriculados nas minhas disciplinas, para que eu possa planejar minhas aulas de acordo.    |
 | 12     | Professor            | Como professor, eu quero consultar os horários das disciplinas que leciono, para que eu possa me organizar e preparar minhas aulas.                                    |
 | 13     | Sistema de cobranças| Como sistema de cobranças, eu quero receber notificações do sistema de matrículas sobre as matrículas realizadas, para que eu possa gerar cobranças corretas para os alunos pelas disciplinas em que se matricularam.|
-| 14     | Usuário | Como usuário do sistema, eu quero validar meu login utilizando minha senha, para que eu possa acessar minhas informações de forma segura.                             |
+| 14     | Sistema de cobranças | Como sistema de cobranças, eu quero alertar alunos sobre pagamentos pendentes, para evitar inadimplência e suspensão de matrícula.                         |
+| 15     | Usuário | Como usuário do sistema, eu quero validar meu login utilizando minha senha, para que eu possa acessar minhas informações de forma segura.                             |
 
