@@ -24,7 +24,6 @@ Este projeto tem como objetivo informatizar o sistema de matrículas de uma univ
 ### Professores
 
 - **Consultar Alunos Matriculados:** Permite aos professores visualizar os alunos matriculados em suas disciplinas.
-- **Inserir Notas dos Alunos:** Permite aos professores inserir as notas dos alunos no sistema.
 - **Consultar Horários das Disciplinas:** Permite aos professores consultar os horários das disciplinas que lecionam.
 
 ### Sistema de Matrículas
