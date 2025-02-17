@@ -62,3 +62,82 @@ Este projeto tem como objetivo informatizar o sistema de matrículas de uma univ
 | 14     | Sistema de cobranças | Como sistema de cobranças, eu quero alertar alunos sobre pagamentos pendentes, para evitar inadimplência e suspensão de matrícula.                         |
 | 15     | Usuário | Como usuário do sistema, eu quero validar meu login utilizando minha senha, para que eu possa acessar minhas informações de forma segura.                             |
 
+#
+
+## Diagrama de classes
+
+
+#
+
+## Estrutura dos diretórios
+````
+│
+├── src
+│   └── main
+│       ├── java
+│       │   └── com.example.PucTricula
+│       │       ├── application
+│       │       │   └── PucTriculaApplication.java
+│       │       ├── config
+│       │       │   └── AppConfig.java
+│       │       ├── controller
+│       │       │   ├── AlunoController.java
+│       │       │   ├── ProfessorController.java
+│       │       │   ├── AdministradorController.java
+│       │       │   ├── CursoController.java
+│       │       │   └── DisciplinaController.java
+│       │       ├── model
+│       │       │   ├── Usuario.java
+│       │       │   ├── Aluno.java
+│       │       │   ├── Professor.java
+│       │       │   ├── Administrador.java
+│       │       │   ├── Curso.java
+│       │       │   └── Disciplina.java
+│       │       ├── repository
+│       │       │   ├── AlunoRepository.java
+│       │       │   ├── ProfessorRepository.java
+│       │       │   ├── AdministradorRepository.java
+│       │       │   ├── CursoRepository.java
+│       │       │   └── DisciplinaRepository.java
+│       │       └── service
+│       │           ├── AlunoService.java
+│       │           ├── ProfessorService.java
+│       │           ├── AdministradorService.java
+│       │           ├── CursoService.java
+│       │           └── DisciplinaService.java
+│       └── resources
+│           ├── application.properties
+│           ├── static
+│           │   └── css
+│           │       └── style.css
+│           └── templates
+│               ├── aluno
+│               │   ├── matricula.html
+│               │   ├── cancelarMatricula.html
+│               │   ├── visualizarNotificacoes.html
+│               │   ├── consultarDisciplinas.html
+│               │   └── consultarStatus.html
+│               ├── professor
+│               │   ├── consultarHorarios.html
+│               │   ├── visualizarAlunos.html
+│               ├── administrador
+│               │   ├── gerarCurriculoSemestral.html
+│               │   ├── atualizarInformacoes.html
+│               ├── curso
+│               │   ├── listarCursos.html
+│               ├── disciplina
+│               │   ├── listarDisciplinas.html
+│               └── home.html
+````
+
+## Descrição das Pastas
+
+- **application/**: Contém a classe principal da aplicação.
+- **config/**: Arquivos de configuração da aplicação.
+- **controller/**: Contém os controladores REST para gerenciar as requisições dos usuários.
+- **model/**: Define as classes de modelo usadas na aplicação.
+- **repository/**: Interfaces para acesso ao banco de dados.
+- **service/**: Lógica de negócio da aplicação.
+- **resources/**: Arquivos de configuração, templates e arquivos estáticos.
+- **templates/**: Contém as páginas HTML da aplicação.
+#
