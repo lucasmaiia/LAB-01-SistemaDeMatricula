@@ -3,13 +3,7 @@ package main.java.model;
 public class Usuario {
     private String login;
     private String senha;
-
-    public Usuario(String login, String senha){
-
-        this.login = login;
-        this.senha = senha;
-
-    }
+    private String nome;
 
     public String getLogin() {
         return login;
@@ -23,4 +17,22 @@ public class Usuario {
     public void setSenha(String senha) {
         this.senha = senha;
     }
+    public String getNome() {
+        return nome;
+    }
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public Usuario(String login, String senha){
+
+        this.login = login;
+        this.senha = senha;
+
+    }
+
+    void realizarLogin(){
+
+    }
+
 }
