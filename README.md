@@ -66,7 +66,8 @@ Este projeto tem como objetivo informatizar o sistema de matrículas de uma univ
 
 ## Diagrama de classes
 
-![Diagrama de classes](Diagramas/diagrama_class.jpg)
+![Diagrama de Classes](Diagramas/diagrama_class.png)
+
 
 #
 
