@@ -68,26 +68,22 @@ Este projeto tem como objetivo informatizar o sistema de matrículas de uma univ
 
 ![Diagrama de Classes](Diagramas/diagrama_class.png)
 
-
 #
 
 ## Estrutura dos diretórios
 ````
 │
 ├── src
+|   ├──Diagramas
+|   |  ├──DCU_SistemaMatricula.jpg
+|   |  └──diagrama_class.png
 │   └── main
 │       ├── java
 │       │   └── com.example.PucTricula
 │       │       ├── application
 │       │       │   └── PucTriculaApplication.java
 │       │       ├── config
-│       │       │   └── AppConfig.java
 │       │       ├── controller
-│       │       │   ├── AlunoController.java
-│       │       │   ├── ProfessorController.java
-│       │       │   ├── AdministradorController.java
-│       │       │   ├── CursoController.java
-│       │       │   └── DisciplinaController.java
 │       │       ├── model
 │       │       │   ├── Usuario.java
 │       │       │   ├── Aluno.java
@@ -95,41 +91,10 @@ Este projeto tem como objetivo informatizar o sistema de matrículas de uma univ
 │       │       │   ├── Administrador.java
 │       │       │   ├── Curso.java
 │       │       │   └── Disciplina.java
-│       │       ├── repository
-│       │       │   ├── AlunoRepository.java
-│       │       │   ├── ProfessorRepository.java
-│       │       │   ├── AdministradorRepository.java
-│       │       │   ├── CursoRepository.java
-│       │       │   └── DisciplinaRepository.java
 │       │       └── service
-│       │           ├── AlunoService.java
-│       │           ├── ProfessorService.java
-│       │           ├── AdministradorService.java
-│       │           ├── CursoService.java
-│       │           └── DisciplinaService.java
 │       └── resources
-│           ├── application.properties
-│           ├── static
-│           │   └── css
-│           │       └── style.css
-│           └── templates
-│               ├── aluno
-│               │   ├── matricula.html
-│               │   ├── cancelarMatricula.html
-│               │   ├── visualizarNotificacoes.html
-│               │   ├── consultarDisciplinas.html
-│               │   └── consultarStatus.html
-│               ├── professor
-│               │   ├── consultarHorarios.html
-│               │   ├── visualizarAlunos.html
-│               ├── administrador
-│               │   ├── gerarCurriculoSemestral.html
-│               │   ├── atualizarInformacoes.html
-│               ├── curso
-│               │   ├── listarCursos.html
-│               ├── disciplina
-│               │   ├── listarDisciplinas.html
-│               └── home.html
+|
+
 ````
 
 ## Descrição das Pastas
