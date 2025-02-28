@@ -14,6 +14,7 @@ public class LoginController {
         String role = usuario.realizarLogin(login, password);
         if (role != null) {
             JOptionPane.showMessageDialog(null, "Login bem-sucedido! Tipo de usuário: " + role);
+            
         } else {
             JOptionPane.showMessageDialog(null, "Usuário ou senha incorretos.", "Erro", JOptionPane.ERROR_MESSAGE);
         }

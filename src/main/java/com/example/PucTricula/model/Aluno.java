@@ -1,28 +1,48 @@
 package main.java.com.example.PucTricula.model;
 
-public class Aluno {
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JFrame;
+
+public class Aluno extends Usuario{
+    private int matricula;
+    private List<Disciplina> disciplinas = new ArrayList<>();
+
     
-    public Aluno(){
 
+    public Aluno(String string, String string2, String string3) {
+        //TODO Auto-generated constructor stub
     }
 
-    void realizarMatricula(){
+    
 
+    public Aluno(Aluno alunoLogado, SistemaMatricula sistema) {
+        //TODO Auto-generated constructor stub
     }
 
-    void cancelarMatricula(){
 
+
+    public List<Disciplina> getDisciplinas() {
+        return disciplinas;
     }
 
-    void visualizarNotificacoes(){
-
+    public int getMatricula() {
+        return matricula;
     }
 
-    void consultarDisciplinas(){
-
+    public boolean autenticar(String senha) {
+        return this.senha.equals(senha);
     }
 
-    void consultarStatus(){
-        
+    public boolean adicionarDisciplina(Disciplina disciplina) {
+        if (disciplinas.size() < 6) {
+            disciplinas.add(disciplina);
+            return disciplina.matricularAluno(this);
+        }
+        return false;
     }
+
+
 }
+ 

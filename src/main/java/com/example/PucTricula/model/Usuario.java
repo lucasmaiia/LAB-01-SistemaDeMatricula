@@ -5,13 +5,14 @@ import java.util.Map;
 
 public class Usuario {
 
+    protected String nome;
+    protected String senha;
     private Map<String, String[]> usuarios;
 
     public Usuario(){
         usuarios = new HashMap<>();
-        usuarios.put("aluno", new String[]{"123", "aluno"});
-        usuarios.put("prof", new String[]{"123", "professor"});
-        usuarios.put("admin", new String[]{"123", "admin"});
+        usuarios.put(nome, new String[]{senha});
+        
     }
 
 
@@ -21,6 +22,13 @@ public class Usuario {
         }
         return null;
     }
+
+    public String getNome() {
+        return nome;
     }
+
+    }
+
+
 
 

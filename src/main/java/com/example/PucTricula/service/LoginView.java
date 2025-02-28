@@ -1,42 +1,63 @@
 package main.java.com.example.PucTricula.service;
 
 import main.java.com.example.PucTricula.controller.LoginController;
+import main.java.com.example.PucTricula.model.Administrador;
+import main.java.com.example.PucTricula.model.Aluno;
+import main.java.com.example.PucTricula.model.SistemaMatricula;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class LoginView extends JFrame {
-    private JTextField userField;
-    private JPasswordField passwordField;
-    private JButton loginButton;
-    private JButton cancelButton;
-    private LoginController controller;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
-    public LoginView(LoginController controller) {
-        this.controller = controller;
-        
+public class LoginView extends JFrame {
+    private SistemaMatricula sistema;
+    
+    public LoginView(SistemaMatricula sistema) {
+        this.sistema = sistema;
         setTitle("Login");
         setSize(300, 200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-        setLayout(new GridLayout(3, 2));
+        setLayout(new GridLayout(4, 2));
         
         JLabel userLabel = new JLabel("Usuário:");
-        userField = new JTextField();
-        JLabel passwordLabel = new JLabel("Senha:");
-        passwordField = new JPasswordField();
-        loginButton = new JButton("Login");
-        cancelButton = new JButton("Cancelar");
+        JTextField userField = new JTextField();
+        JLabel passLabel = new JLabel("Senha:");
+        JPasswordField passField = new JPasswordField();
+        JButton loginButton = new JButton("Login");
+        
+        loginButton.addActionListener(e -> {
+            String usuario = userField.getText();
+            String senha = new String(passField.getPassword());
+            
+            Aluno alunoLogado = null;
+        for (Aluno aluno : sistema.getAlunos()) {
+            if (aluno.getNome().equals(usuario) && aluno.autenticar(senha)) {
+                alunoLogado = aluno;
+                break;
+            }
+        }       
+
+        if (alunoLogado != null) {
+            new AlunoView(alunoLogado, sistema).setVisible(true);
+            dispose();
+        }else if (new Administrador().autenticar(senha)) {
+                new AdminView(sistema).setVisible(true);
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Login inválido!");
+            }
+        });
         
         add(userLabel);
         add(userField);
-        add(passwordLabel);
-        add(passwordField);
+        add(passLabel);
+        add(passField);
+        add(new JLabel());
         add(loginButton);
-        add(cancelButton);
-        
-        loginButton.addActionListener(e -> controller.handleLogin(userField.getText(), new String(passwordField.getPassword())));
-        cancelButton.addActionListener(e -> System.exit(0));
+    }
     }
     
     /*public static void main(String[] args) {
@@ -45,7 +66,7 @@ public class LoginView extends JFrame {
             new LoginView(controller).setVisible(true);
         });
     }*/
-}
+
         
 
 
