@@ -1,8 +1,13 @@
-package main.java.model;
+package main.java.com.example.PucTricula.model;
 
 public class Disciplina {
     private String nome;
     private int creditos;
+
+    public Disciplina(String nome, int creditos){
+        this.nome = nome;
+        this.creditos = creditos;
+    }
 
     public int getCreditos() {
         return creditos;

@@ -1,4 +1,4 @@
-package main.java.model;
+package main.java.com.example.PucTricula.model;
 
 public class Professor {
     
