@@ -86,10 +86,18 @@ class View {
                         }
                     }
                     break;
-                case 5:
-                    System.out.println("\nDisciplinas cadastradas:");
+                    case 5:
+                    System.out.println("\nDisciplinas cadastradas e seus alunos:");
                     for (Disciplina d : disciplinas) {
                         System.out.println("- " + d.getNome() + " (Créditos: " + d.getCreditos() + ")");
+                        if (d.getAlunosMatriculados().isEmpty()) {
+                            System.out.println("  Nenhum aluno matriculado.");
+                        } else {
+                            System.out.println("  Alunos matriculados:");
+                            for (Aluno alunoMatriculado : d.getAlunosMatriculados()) {
+                                System.out.println("    - " + alunoMatriculado.getNome());
+                            }
+                        }
                     }
                     break;
                 case 6:
