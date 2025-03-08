@@ -5,7 +5,7 @@ import javax.swing.SwingUtilities;
 import main.java.com.example.PucTricula.controller.LoginController;
 import main.java.com.example.PucTricula.model.Disciplina;
 import main.java.com.example.PucTricula.model.SistemaMatricula;
-import main.java.com.example.PucTricula.service.LoginView;
+import main.java.com.example.PucTricula.view.LoginView;
 import main.java.com.example.PucTricula.model.Aluno;
 
 public class PucTriculaApplication {

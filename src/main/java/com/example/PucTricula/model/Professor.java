@@ -3,7 +3,7 @@ package main.java.com.example.PucTricula.model;
 import java.util.ArrayList;
 import java.util.List;
 
-class Professor extends Usuario {
+public class Professor extends Usuario {
     private List<Disciplina> disciplinasLecionadas;
 
     public Professor(String nome, String email, String senha) {

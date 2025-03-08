@@ -3,9 +3,14 @@ package main.java.com.example.PucTricula.model;
 import java.util.ArrayList;
 import java.util.List;
 
-class Disciplina {
+public class Disciplina {
     private String nome;
     private int creditos;
+    
+    public int getCreditos() {
+        return creditos;
+    }
+
     private List<Aluno> alunosMatriculados;
 
     public Disciplina(String nome, int creditos) {

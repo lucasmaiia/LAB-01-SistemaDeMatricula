@@ -3,7 +3,7 @@ package main.java.com.example.PucTricula.model;
 import java.util.ArrayList;
 import java.util.List;
 
-class Curso {
+public class Curso {
     private String nome;
     private int creditos;
     private List<Disciplina> disciplinas;

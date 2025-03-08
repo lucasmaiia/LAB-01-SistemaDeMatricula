@@ -1,5 +1,8 @@
 package main.java.com.example.PucTricula.controller;
 
+import main.java.com.example.PucTricula.model.Aluno;
+import main.java.com.example.PucTricula.model.Disciplina;
+
 class DisciplinaController {
     public void matricularAluno(Disciplina disciplina, Aluno aluno) {
         if (disciplina.matricularAluno(aluno)) {
