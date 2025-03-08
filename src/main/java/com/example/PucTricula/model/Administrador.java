@@ -1,24 +1,15 @@
 package main.java.com.example.PucTricula.model;
 
-public class Administrador {
-    
-    private String senhaAdmin = "admin123";
-    
-    public Administrador(){
-
+class Administrador extends Usuario {
+    public Administrador(String nome, String email, String senha) {
+        super(nome, email, senha);
     }
 
-    public boolean autenticar(String senha) {
-        return senha.equals(senhaAdmin);
+    public void gerarCurriculoSemestral() {
+        System.out.println("Gerando currículo para o semestre...");
     }
 
-
-    public void gerarCurriculoTrimestral(){
-
+    public void atualizarInformacoes() {
+        System.out.println("Atualizando informações do sistema...");
     }
-
-    void atualizarInformacoes(){
-
-    }
-
 }

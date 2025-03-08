@@ -1,48 +1,42 @@
 package main.java.com.example.PucTricula.model;
 
+import main.java.com.example.PucTricula.model.Disciplina;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JFrame;
+public class Aluno extends Usuario {
+    private List<Disciplina> disciplinasMatriculadas;
 
-public class Aluno extends Usuario{
-    private int matricula;
-    private List<Disciplina> disciplinas = new ArrayList<>();
-
-    
-
-    public Aluno(String string, String string2, String string3) {
-        //TODO Auto-generated constructor stub
+    public Aluno(String nome, String email, String senha) {
+        super(nome, email, senha);
+        this.disciplinasMatriculadas = new ArrayList<>();
     }
 
-    
-
-    public Aluno(Aluno alunoLogado, SistemaMatricula sistema) {
-        //TODO Auto-generated constructor stub
-    }
-
-
-
-    public List<Disciplina> getDisciplinas() {
-        return disciplinas;
-    }
-
-    public int getMatricula() {
-        return matricula;
-    }
-
-    public boolean autenticar(String senha) {
-        return this.senha.equals(senha);
-    }
-
-    public boolean adicionarDisciplina(Disciplina disciplina) {
-        if (disciplinas.size() < 6) {
-            disciplinas.add(disciplina);
-            return disciplina.matricularAluno(this);
+    public boolean realizarMatricula(Disciplina disciplina) {
+        if (disciplinasMatriculadas.size() < 6) {
+            disciplinasMatriculadas.add(disciplina);
+            System.out.println("Matrícula realizada na disciplina: " + disciplina.getNome());
+            return true; 
+        } else {
+            System.out.println("Limite de disciplinas atingido!");
+            return false; 
         }
-        return false;
+    }
+    
+
+    public void cancelarMatricula(Disciplina disciplina) {
+        if (disciplinasMatriculadas.remove(disciplina)) {
+            System.out.println("Matrícula cancelada na disciplina: " + disciplina.getNome());
+        } else {
+            System.out.println("Você não está matriculado nessa disciplina.");
+        }
     }
 
-
+    public void visualizarDisciplinas() {
+        System.out.println("Disciplinas matriculadas:");
+        for (Disciplina d : disciplinasMatriculadas) {
+            System.out.println("- " + d.getNome());
+        }
+    }
 }
- 

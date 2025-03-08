@@ -1,18 +1,34 @@
 package main.java.com.example.PucTricula.model;
 
-public class Professor {
-    
+import java.util.ArrayList;
+import java.util.List;
 
-    public Professor(){
+class Professor extends Usuario {
+    private List<Disciplina> disciplinasLecionadas;
 
+    public Professor(String nome, String email, String senha) {
+        super(nome, email, senha);
+        this.disciplinasLecionadas = new ArrayList<>();
     }
 
-    void consultarHorarios(){
-
+    public void adicionarDisciplina(Disciplina disciplina) {
+        disciplinasLecionadas.add(disciplina);
     }
 
-    void visualizarAlunos(){
-        
+    public void consultarHorarios() {
+        System.out.println("Horários das disciplinas lecionadas por " + getNome() + ":");
+        for (Disciplina d : disciplinasLecionadas) {
+            System.out.println("- " + d.getNome());
+        }
     }
 
+    public void visualizarAlunos() {
+        System.out.println("Alunos matriculados nas disciplinas lecionadas por " + getNome() + ":");
+        for (Disciplina d : disciplinasLecionadas) {
+            System.out.println("Disciplina: " + d.getNome());
+            for (Aluno aluno : d.getAlunosMatriculados()) {
+                System.out.println("- " + aluno.getNome());
+            }
+        }
+    }
 }

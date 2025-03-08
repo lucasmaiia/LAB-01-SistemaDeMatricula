@@ -1,34 +1,35 @@
 package main.java.com.example.PucTricula.model;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.io.Serializable;
 
-public class Usuario {
+public abstract class Usuario implements Serializable {
+    private String nome;
+    private String email;
+    private String senha;
 
-    protected String nome;
-    protected String senha;
-    private Map<String, String[]> usuarios;
-
-    public Usuario(){
-        usuarios = new HashMap<>();
-        usuarios.put(nome, new String[]{senha});
-        
-    }
-
-
-    public String realizarLogin(String login, String password){
-        if (usuarios.containsKey(login) && usuarios.get(login)[0].equals(password)) {
-            return usuarios.get(login)[1];
-        }
-        return null;
+    public Usuario(String nome, String email, String senha) {
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
     }
 
     public String getNome() {
         return nome;
     }
 
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
+    public String getEmail() {
+        return email;
+    }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-
+    public boolean validarSenha(String senhaDigitada) {
+        return this.senha.equals(senhaDigitada);
+    }
+}
