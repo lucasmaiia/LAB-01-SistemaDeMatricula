@@ -2,13 +2,11 @@ package main.java.com.example.PucTricula.view;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -20,100 +18,7 @@ import main.java.com.example.PucTricula.model.Usuario;
 class View {
     private static final String FILE_USUARIOS = "usuarios.csv";
     private static final String FILE_DISCIPLINAS = "disciplinas.csv";
-
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        List<Usuario> usuarios = carregarUsuarios();
-        List<Disciplina> disciplinas = carregarDisciplinas();
-        
-        while (true) {
-            System.out.println("\n--- Sistema de Matrículas Universitário ---");
-            System.out.println("1. Cadastrar Aluno");
-            System.out.println("2. Listar Usuários");
-            System.out.println("3. Cadastrar Disciplina");
-            System.out.println("4. Matricular Aluno em Disciplina");
-            System.out.println("5. Listar Disciplinas e Alunos Matriculados");
-            System.out.println("6. Sair");
-            System.out.print("Escolha uma opção: ");
-            System.out.println();
-            int opcao = scanner.nextInt();
-            scanner.nextLine();
-
-            switch (opcao) {
-                case 1:
-                    System.out.print("Nome: ");
-                    String nome = scanner.nextLine();
-                    System.out.print("Email: ");
-                    String email = scanner.nextLine();
-                    System.out.print("Senha: ");
-                    String senha = scanner.nextLine();
-                    Usuario aluno = new Aluno(nome, email, senha);
-                    usuarios.add(aluno);
-                    salvarUsuarios(usuarios);
-                    System.out.println("Aluno cadastrado com sucesso!");
-                    break;
-                case 2:
-                    System.out.println("\nUsuários cadastrados:");
-                    for (Usuario u : usuarios) {
-                        System.out.println("- " + u.getNome() + " (" + u.getEmail() + ")");
-                    }
-                    break;
-                case 3:
-                    System.out.print("Nome da Disciplina: ");
-                    String nomeDisciplina = scanner.nextLine();
-                    System.out.print("Créditos: ");
-                    int creditos = scanner.nextInt();
-                    scanner.nextLine();
-                    disciplinas.add(new Disciplina(nomeDisciplina, creditos));
-                    salvarDisciplinas(disciplinas);
-                    System.out.println("Disciplina cadastrada com sucesso!");
-                    break;
-                case 4:
-                    System.out.println("Selecione um aluno:");
-                    for (int i = 0; i < usuarios.size(); i++) {
-                        if (usuarios.get(i) instanceof Aluno) {
-                            System.out.println(i + ". " + usuarios.get(i).getNome());
-                        }
-                    }
-                    int alunoIndex = scanner.nextInt();
-                    scanner.nextLine();
-                    if (alunoIndex >= 0 && alunoIndex < usuarios.size() && usuarios.get(alunoIndex) instanceof Aluno) {
-                        Aluno alunoSelecionado = (Aluno) usuarios.get(alunoIndex);
-                        System.out.println("Selecione uma disciplina:");
-                        for (int i = 0; i < disciplinas.size(); i++) {
-                            System.out.println(i + ". " + disciplinas.get(i).getNome());
-                        }
-                        int disciplinaIndex = scanner.nextInt();
-                        scanner.nextLine();
-                        if (disciplinaIndex >= 0 && disciplinaIndex < disciplinas.size()) {
-                            alunoSelecionado.realizarMatricula(disciplinas.get(disciplinaIndex));
-                            salvarUsuarios(usuarios);
-                        }
-                    }
-                    break;
-                    case 5:
-                    System.out.println("\nDisciplinas cadastradas e seus alunos:");
-                    for (Disciplina d : disciplinas) {
-                        System.out.println("- " + d.getNome() + " (Créditos: " + d.getCreditos() + ")");
-                        if (d.getAlunosMatriculados().isEmpty()) {
-                            System.out.println("  Nenhum aluno matriculado.");
-                        } else {
-                            System.out.println("  Alunos matriculados:");
-                            for (Aluno alunoMatriculado : d.getAlunosMatriculados()) {
-                                System.out.println("    - " + alunoMatriculado.getNome());
-                            }
-                        }
-                    }
-                    break;
-                case 6:
-                    System.out.println("Encerrando sistema...");
-                    scanner.close();
-                    return;
-                default:
-                    System.out.println("Opção inválida, tente novamente.");
-            }
-        }
-    }
+    private static final String FILE_MATRICULAS = "matriculas.csv";
 
     private static void salvarUsuarios(List<Usuario> usuarios) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_USUARIOS))) {
@@ -163,5 +68,42 @@ class View {
             System.out.println("Nenhuma disciplina encontrada, iniciando lista vazia.");
         }
         return disciplinas;
+    }
+
+    private static void carregarMatriculas(List<Usuario> usuarios, List<Disciplina> disciplinas) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_MATRICULAS))) {
+            String linha;
+            while ((linha = reader.readLine()) != null) {
+                String[] dados = linha.split(",");
+                String nomeAluno = dados[0];
+                String nomeDisciplina = dados[1];
+                
+                Aluno aluno = (Aluno) usuarios.stream()
+                    .filter(u -> u instanceof Aluno && u.getNome().equals(nomeAluno))
+                    .findFirst()
+                    .orElse(null);
+                
+                Disciplina disciplina = disciplinas.stream()
+                    .filter(d -> d.getNome().equals(nomeDisciplina))
+                    .findFirst()
+                    .orElse(null);
+                
+                if (aluno != null && disciplina != null) {
+                    disciplina.matricularAluno(aluno);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Nenhuma matrícula encontrada, iniciando lista vazia.");
+        }
+    }
+
+    private static void salvarMatricula(String nomeAluno, String nomeDisciplina) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_MATRICULAS, true))) {
+            writer.write(nomeAluno + "," + nomeDisciplina);
+            writer.newLine();
+        } catch (IOException e) {
+
+            System.out.println("Erro ao salvar matrícula: " + e.getMessage());
+        }
     }
 }
