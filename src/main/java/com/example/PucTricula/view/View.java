@@ -1,7 +1,11 @@
 package main.java.com.example.PucTricula.view;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -14,8 +18,8 @@ import main.java.com.example.PucTricula.model.Disciplina;
 import main.java.com.example.PucTricula.model.Usuario;
 
 class View {
-    private static final String FILE_NAME = "usuarios.txt";
-    private static final String DISCIPLINAS_FILE = "disciplinas.txt";
+    private static final String FILE_USUARIOS = "usuarios.csv";
+    private static final String FILE_DISCIPLINAS = "disciplinas.csv";
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -31,6 +35,7 @@ class View {
             System.out.println("5. Listar Disciplinas e Alunos Matriculados");
             System.out.println("6. Sair");
             System.out.print("Escolha uma opção: ");
+            System.out.println();
             int opcao = scanner.nextInt();
             scanner.nextLine();
 
@@ -111,34 +116,52 @@ class View {
     }
 
     private static void salvarUsuarios(List<Usuario> usuarios) {
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(FILE_NAME))) {
-            out.writeObject(usuarios);
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_USUARIOS))) {
+            for (Usuario u : usuarios) {
+                writer.write(u.getNome() + "," + u.getEmail() + "," + u.getSenha());
+                writer.newLine();
+            }
         } catch (IOException e) {
             System.out.println("Erro ao salvar usuários: " + e.getMessage());
         }
     }
 
     private static List<Usuario> carregarUsuarios() {
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(FILE_NAME))) {
-            return (List<Usuario>) in.readObject();
-        } catch (IOException | ClassNotFoundException e) {
-            return new ArrayList<>();
+        List<Usuario> usuarios = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_USUARIOS))) {
+            String linha;
+            while ((linha = reader.readLine()) != null) {
+                String[] dados = linha.split(",");
+                usuarios.add(new Aluno(dados[0], dados[1], dados[2]));
+            }
+        } catch (IOException e) {
+            System.out.println("Nenhum usuário encontrado, iniciando lista vazia.");
         }
+        return usuarios;
     }
 
     private static void salvarDisciplinas(List<Disciplina> disciplinas) {
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(DISCIPLINAS_FILE))) {
-            out.writeObject(disciplinas);
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_DISCIPLINAS))) {
+            for (Disciplina d : disciplinas) {
+                writer.write(d.getNome() + "," + d.getCreditos());
+                writer.newLine();
+            }
         } catch (IOException e) {
             System.out.println("Erro ao salvar disciplinas: " + e.getMessage());
         }
     }
 
     private static List<Disciplina> carregarDisciplinas() {
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(DISCIPLINAS_FILE))) {
-            return (List<Disciplina>) in.readObject();
-        } catch (IOException | ClassNotFoundException e) {
-            return new ArrayList<>();
+        List<Disciplina> disciplinas = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_DISCIPLINAS))) {
+            String linha;
+            while ((linha = reader.readLine()) != null) {
+                String[] dados = linha.split(",");
+                disciplinas.add(new Disciplina(dados[0], Integer.parseInt(dados[1])));
+            }
+        } catch (IOException e) {
+            System.out.println("Nenhuma disciplina encontrada, iniciando lista vazia.");
         }
+        return disciplinas;
     }
 }
