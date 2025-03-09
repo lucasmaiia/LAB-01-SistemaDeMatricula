@@ -51,7 +51,7 @@ class View {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_DISCIPLINAS))) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             for (Disciplina d : disciplinas) {
-                writer.write(d.getNome() + "," + d.getCreditos() + "," + d.getDataLimiteMatricula().format(formatter));
+                writer.write(d.getNome() + "," + d.getCreditos() + "," + d.getCusto() + "," + d.getDataLimiteMatricula().format(formatter));
                 writer.newLine();
             }
         } catch (IOException e) {
@@ -67,7 +67,7 @@ class View {
             while ((linha = reader.readLine()) != null) {
                 String[] dados = linha.split(",");
                 disciplinas.add(
-                        new Disciplina(dados[0], Integer.parseInt(dados[1]), LocalDate.parse(dados[2], formatter)));
+                        new Disciplina(dados[0], Integer.parseInt(dados[1]), LocalDate.parse(dados[2], formatter), 0));
             }
         } catch (IOException e) {
             System.out.println("Nenhuma disciplina encontrada, iniciando lista vazia.");
@@ -109,6 +109,21 @@ class View {
         } catch (IOException e) {
 
             System.out.println("Erro ao salvar matrícula: " + e.getMessage());
+        }
+    }
+    public static void calcularMensalidades(List<Usuario> usuarios, List<Disciplina> disciplinas) {
+        System.out.println("\n--- Sistema de Cobrança ---");
+        for (Usuario u : usuarios) {
+            if (u instanceof Aluno) {
+                Aluno aluno = (Aluno) u;
+                double totalMensalidade = 0;
+                for (Disciplina d : disciplinas) {
+                    if (d.getAlunosMatriculados().contains(aluno)) {
+                        totalMensalidade += d.getCusto();
+                    }
+                }
+                System.out.println("Aluno: " + aluno.getNome() + " - Mensalidade: R$ " + totalMensalidade);
+            }
         }
     }
 }

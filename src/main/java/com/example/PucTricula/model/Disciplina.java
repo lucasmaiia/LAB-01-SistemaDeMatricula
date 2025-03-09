@@ -8,15 +8,19 @@ public class Disciplina {
     private String nome;
     private int creditos;
     private Professor professor;
+    private double custo;
+
+
     private LocalDate dataLimiteMatricula;
 
     private List<Aluno> alunosMatriculados;
 
-    public Disciplina(String nome, int creditos, LocalDate dataLimiteMatricula) {
+    public Disciplina(String nome, int creditos, LocalDate dataLimiteMatricula, double custo) {
         this.nome = nome;
         this.creditos = creditos;
         this.alunosMatriculados = new ArrayList<>();
         this.dataLimiteMatricula = dataLimiteMatricula;
+        this.custo = custo;
     }
 
     
@@ -61,6 +65,15 @@ public class Disciplina {
 
     public LocalDate getDataLimiteMatricula() {
         return dataLimiteMatricula;
+    }
+
+    public double getCusto() {
+        return custo;
+    }
+
+
+    public void setCusto(double custo) {
+        this.custo = custo;
     }
 
 }

@@ -38,7 +38,8 @@ class PucTriculaApplication {
             System.out.println("5. Matricular Aluno em Disciplina");
             System.out.println("6. Atribuir Professor a Disciplina");
             System.out.println("7. Listar Disciplinas, Professores e Alunos Matriculados");
-            System.out.println("8. Sair");
+            System.out.println("8. Sistema de Cobrança");
+            System.out.println("9. Sair");
             System.out.print("Escolha uma opção: ");
             int opcao = scanner.nextInt();
             scanner.nextLine();
@@ -77,19 +78,21 @@ class PucTriculaApplication {
                     break;
 
                 case 4:
-                    System.out.print("Nome da Disciplina: ");
-                    String nomeDisciplina = scanner.nextLine();
-                    System.out.print("Créditos: ");
-                    int creditos = scanner.nextInt();
-                    scanner.nextLine();
-                    System.out.print("Data limite para matrícula (dd/MM/yyyy): ");
-                    String dataLimiteInput = scanner.nextLine();
-                    LocalDate dataLimite = LocalDate.parse(dataLimiteInput, formatter);
-                    disciplinas.add(new Disciplina(nomeDisciplina, creditos, dataLimite));
-                    salvarDisciplinas(disciplinas);
-                    System.out.println("Disciplina cadastrada com sucesso!");
-                    break;
-
+                System.out.print("Nome da Disciplina: ");
+                String nomeDisciplina = scanner.nextLine();
+                System.out.print("Créditos: ");
+                int creditos = scanner.nextInt();
+                scanner.nextLine();
+                System.out.print("Custo mensal da disciplina: ");
+                double custo = scanner.nextDouble();
+                scanner.nextLine();
+                System.out.print("Data limite para matrícula (dd/MM/yyyy): ");
+                String dataLimiteInput = scanner.nextLine();
+                LocalDate dataLimite = LocalDate.parse(dataLimiteInput, formatter);
+                disciplinas.add(new Disciplina(nomeDisciplina, creditos, dataLimite, custo));
+                salvarDisciplinas(disciplinas);
+                System.out.println("Disciplina cadastrada com sucesso!");
+                break;
                 case 5:
                 System.out.println("Selecione um aluno para matrícula:");
                 List<Aluno> alunos = new ArrayList<>();
@@ -103,23 +106,17 @@ class PucTriculaApplication {
                 }
                 int alunoIndex = scanner.nextInt();
                 scanner.nextLine();
-                
                 if (alunoIndex >= 0 && alunoIndex < alunos.size()) {
-                    Aluno alunoSelecionado = alunos.get(alunoIndex); 
-                    
+                    Aluno alunoSelecionado = alunos.get(alunoIndex);
                     System.out.println("Selecione uma disciplina:");
                     for (int i = 0; i < disciplinas.size(); i++) {
-                        System.out.println(i + ". " + disciplinas.get(i).getNome() + " (Data limite: " + 
-                                           disciplinas.get(i).getDataLimiteMatricula().format(formatter) + ")");
+                        System.out.println(i + ". " + disciplinas.get(i).getNome() + " (Custo: R$ " + disciplinas.get(i).getCusto() + ", Data limite: " + disciplinas.get(i).getDataLimiteMatricula().format(formatter) + ")");
                     }
                     int disciplinaIndex = scanner.nextInt();
                     scanner.nextLine();
                     if (disciplinaIndex >= 0 && disciplinaIndex < disciplinas.size()) {
-                        Disciplina disciplinaSelecionada = disciplinas.get(disciplinaIndex); 
-                        boolean matriculado = disciplinaSelecionada.matricularAluno(alunoSelecionado);
-                        if (matriculado) {
-                            salvarMatricula(alunoSelecionado.getNome(), disciplinaSelecionada.getNome());
-                        }
+                        disciplinas.get(disciplinaIndex).matricularAluno(alunoSelecionado);
+                        salvarMatricula(alunoSelecionado.getNome(), disciplinas.get(disciplinaIndex).getNome());
                     }
                 }
                 break;
@@ -168,7 +165,10 @@ class PucTriculaApplication {
                         }
                     }
                     break;
-                case 8:
+                    case 8:
+                    calcularMensalidades(usuarios, disciplinas);
+                    break;
+                case 9:
                     System.out.println("Encerrando sistema...");
                     scanner.close();
                     return;
@@ -207,7 +207,7 @@ class PucTriculaApplication {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_DISCIPLINAS))) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             for (Disciplina d : disciplinas) {
-                writer.write(d.getNome() + "," + d.getCreditos() + "," + d.getDataLimiteMatricula().format(formatter));
+                writer.write(d.getNome() + "," + d.getCreditos() + "," + d.getCusto() + "," + d.getDataLimiteMatricula().format(formatter));
                 writer.newLine();
             }
         } catch (IOException e) {
@@ -223,7 +223,7 @@ class PucTriculaApplication {
             while ((linha = reader.readLine()) != null) {
                 String[] dados = linha.split(",");
                 disciplinas.add(
-                        new Disciplina(dados[0], Integer.parseInt(dados[1]), LocalDate.parse(dados[2], formatter)));
+                        new Disciplina(dados[0], Integer.parseInt(dados[1]), LocalDate.parse(dados[2], formatter), 0));
             }
         } catch (IOException e) {
             System.out.println("Nenhuma disciplina encontrada, iniciando lista vazia.");
@@ -265,6 +265,21 @@ class PucTriculaApplication {
         } catch (IOException e) {
 
             System.out.println("Erro ao salvar matrícula: " + e.getMessage());
+        }
+    }
+    public static void calcularMensalidades(List<Usuario> usuarios, List<Disciplina> disciplinas) {
+        System.out.println("\n--- Sistema de Cobrança ---");
+        for (Usuario u : usuarios) {
+            if (u instanceof Aluno) {
+                Aluno aluno = (Aluno) u;
+                double totalMensalidade = 0;
+                for (Disciplina d : disciplinas) {
+                    if (d.getAlunosMatriculados().contains(aluno)) {
+                        totalMensalidade += d.getCusto();
+                    }
+                }
+                System.out.println("Aluno: " + aluno.getNome() + " - Mensalidade: R$ " + totalMensalidade);
+            }
         }
     }
 }
