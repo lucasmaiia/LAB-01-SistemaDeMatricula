@@ -33,9 +33,8 @@ Este projeto tem como objetivo informatizar o sistema de matrículas de uma univ
 
 ## Tecnologias Utilizadas
 
-- **Frontend:**
-- **Backend:** 
-- **Banco de Dados:** 
+- **Aplicação:** Java
+- **Persistência de Arquivos:** CSV
 
 ## Casos de Uso 
 
