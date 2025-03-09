@@ -1,5 +1,6 @@
 package main.java.com.example.PucTricula.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,13 +8,15 @@ public class Disciplina {
     private String nome;
     private int creditos;
     private Professor professor;
+    private LocalDate dataLimiteMatricula;
 
     private List<Aluno> alunosMatriculados;
 
-    public Disciplina(String nome, int creditos) {
+    public Disciplina(String nome, int creditos, LocalDate dataLimiteMatricula) {
         this.nome = nome;
         this.creditos = creditos;
         this.alunosMatriculados = new ArrayList<>();
+        this.dataLimiteMatricula = dataLimiteMatricula;
     }
 
     
@@ -30,11 +33,14 @@ public class Disciplina {
     }
 
     public boolean matricularAluno(Aluno aluno) {
-        if (alunosMatriculados.size() < 60) {
+        if(LocalDate.now().isAfter(dataLimiteMatricula) || alunosMatriculados.size() > 60){
+            System.out.println("Erro. O período de matrícula já foi encerrado!");
+            return false;
+        }else{
             alunosMatriculados.add(aluno);
+            System.out.println("Aluno "+aluno.getNome() + " matriculado com sucesso na disciplina " +nome);
             return true;
         }
-        return false;
     }
 
     public void cancelarMatricula(Aluno aluno) {
@@ -51,6 +57,10 @@ public class Disciplina {
 
     public Professor getProfessor() {
         return professor;
+    }
+
+    public LocalDate getDataLimiteMatricula() {
+        return dataLimiteMatricula;
     }
 
 }

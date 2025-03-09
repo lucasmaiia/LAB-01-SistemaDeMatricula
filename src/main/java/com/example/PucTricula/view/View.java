@@ -6,7 +6,8 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -46,10 +47,11 @@ class View {
         return usuarios;
     }
 
-    private static void salvarDisciplinas(List<Disciplina> disciplinas) {
+    public static void salvarDisciplinas(List<Disciplina> disciplinas) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_DISCIPLINAS))) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             for (Disciplina d : disciplinas) {
-                writer.write(d.getNome() + "," + d.getCreditos());
+                writer.write(d.getNome() + "," + d.getCreditos() + "," + d.getDataLimiteMatricula().format(formatter));
                 writer.newLine();
             }
         } catch (IOException e) {
@@ -57,13 +59,15 @@ class View {
         }
     }
 
-    private static List<Disciplina> carregarDisciplinas() {
+    public static List<Disciplina> carregarDisciplinas() {
         List<Disciplina> disciplinas = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_DISCIPLINAS))) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             String linha;
             while ((linha = reader.readLine()) != null) {
                 String[] dados = linha.split(",");
-                disciplinas.add(new Disciplina(dados[0], Integer.parseInt(dados[1])));
+                disciplinas.add(
+                        new Disciplina(dados[0], Integer.parseInt(dados[1]), LocalDate.parse(dados[2], formatter)));
             }
         } catch (IOException e) {
             System.out.println("Nenhuma disciplina encontrada, iniciando lista vazia.");
@@ -78,17 +82,17 @@ class View {
                 String[] dados = linha.split(",");
                 String nomeAluno = dados[0];
                 String nomeDisciplina = dados[1];
-                
+
                 Aluno aluno = (Aluno) usuarios.stream()
-                    .filter(u -> u instanceof Aluno && u.getNome().equals(nomeAluno))
-                    .findFirst()
-                    .orElse(null);
-                
+                        .filter(u -> u instanceof Aluno && u.getNome().equals(nomeAluno))
+                        .findFirst()
+                        .orElse(null);
+
                 Disciplina disciplina = disciplinas.stream()
-                    .filter(d -> d.getNome().equals(nomeDisciplina))
-                    .findFirst()
-                    .orElse(null);
-                
+                        .filter(d -> d.getNome().equals(nomeDisciplina))
+                        .findFirst()
+                        .orElse(null);
+
                 if (aluno != null && disciplina != null) {
                     disciplina.matricularAluno(aluno);
                 }
