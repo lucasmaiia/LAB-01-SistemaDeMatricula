@@ -13,6 +13,7 @@ import java.util.Scanner;
 
 import main.java.com.example.PucTricula.model.Aluno;
 import main.java.com.example.PucTricula.model.Disciplina;
+import main.java.com.example.PucTricula.model.Professor;
 import main.java.com.example.PucTricula.model.Usuario;
 
 class View {

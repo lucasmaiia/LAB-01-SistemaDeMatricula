@@ -6,10 +6,7 @@ import java.util.List;
 public class Disciplina {
     private String nome;
     private int creditos;
-    
-    public int getCreditos() {
-        return creditos;
-    }
+    private Professor professor;
 
     private List<Aluno> alunosMatriculados;
 
@@ -17,6 +14,11 @@ public class Disciplina {
         this.nome = nome;
         this.creditos = creditos;
         this.alunosMatriculados = new ArrayList<>();
+    }
+
+    
+    public int getCreditos() {
+        return creditos;
     }
 
     public String getNome() {
@@ -42,4 +44,13 @@ public class Disciplina {
     public boolean verificarAtivacao() {
         return alunosMatriculados.size() >= 3;
     }
+
+    public void atribuirProfessor(Professor professor) {
+        this.professor = professor;
+    }
+
+    public Professor getProfessor() {
+        return professor;
+    }
+
 }

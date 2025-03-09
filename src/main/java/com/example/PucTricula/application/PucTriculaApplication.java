@@ -13,6 +13,7 @@ import java.util.Scanner;
 
 import main.java.com.example.PucTricula.model.Aluno;
 import main.java.com.example.PucTricula.model.Disciplina;
+import main.java.com.example.PucTricula.model.Professor;
 import main.java.com.example.PucTricula.model.Usuario;
 
 class PucTriculaApplication {
@@ -20,7 +21,7 @@ class PucTriculaApplication {
     private static final String FILE_DISCIPLINAS = "disciplinas.csv";
     private static final String FILE_MATRICULAS = "matriculas.csv";
 
-    public static void main(String[] args) {
+   public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         List<Usuario> usuarios = carregarUsuarios();
         List<Disciplina> disciplinas = carregarDisciplinas();
@@ -29,36 +30,49 @@ class PucTriculaApplication {
         while (true) {
             System.out.println("\n--- Sistema de Matrículas Universitário ---");
             System.out.println("1. Cadastrar Aluno");
-            System.out.println("2. Listar Usuários");
-            System.out.println("3. Cadastrar Disciplina");
-            System.out.println("4. Matricular Aluno em Disciplina");
-            System.out.println("5. Listar Disciplinas e Alunos Matriculados");
-            System.out.println("6. Sair");
+            System.out.println("2. Cadastrar Professor");
+            System.out.println("3. Listar Usuários");
+            System.out.println("4. Cadastrar Disciplina");
+            System.out.println("5. Matricular Aluno em Disciplina");
+            System.out.println("6. Atribuir Professor a Disciplina");
+            System.out.println("7. Listar Disciplinas, Professores e Alunos Matriculados");
+            System.out.println("8. Sair");
             System.out.print("Escolha uma opção: ");
-            System.out.println();
             int opcao = scanner.nextInt();
             scanner.nextLine();
 
             switch (opcao) {
                 case 1:
                     System.out.print("Nome: ");
-                    String nome = scanner.nextLine();
+                    String nomeAluno = scanner.nextLine();
                     System.out.print("Email: ");
-                    String email = scanner.nextLine();
+                    String emailAluno = scanner.nextLine();
                     System.out.print("Senha: ");
-                    String senha = scanner.nextLine();
-                    Usuario aluno = new Aluno(nome, email, senha);
+                    String senhaAluno = scanner.nextLine();
+                    Usuario aluno = new Aluno(nomeAluno, emailAluno, senhaAluno);
                     usuarios.add(aluno);
                     salvarUsuarios(usuarios);
                     System.out.println("Aluno cadastrado com sucesso!");
                     break;
                 case 2:
+                    System.out.print("Nome: ");
+                    String nomeProfessor = scanner.nextLine();
+                    System.out.print("Email: ");
+                    String emailProfessor = scanner.nextLine();
+                    System.out.print("Senha: ");
+                    String senhaProfessor = scanner.nextLine();
+                    Usuario professor = new Professor(nomeProfessor, emailProfessor, senhaProfessor);
+                    usuarios.add(professor);
+                    salvarUsuarios(usuarios);
+                    System.out.println("Professor cadastrado com sucesso!");
+                    break;
+                case 3:
                     System.out.println("\nUsuários cadastrados:");
                     for (Usuario u : usuarios) {
                         System.out.println("- " + u.getNome() + " (" + u.getEmail() + ")");
                     }
                     break;
-                case 3:
+                case 4:
                     System.out.print("Nome da Disciplina: ");
                     String nomeDisciplina = scanner.nextLine();
                     System.out.print("Créditos: ");
@@ -68,7 +82,7 @@ class PucTriculaApplication {
                     salvarDisciplinas(disciplinas);
                     System.out.println("Disciplina cadastrada com sucesso!");
                     break;
-                    case 4:
+                case 5:
                     System.out.println("Selecione um aluno:");
                     List<Aluno> listaAlunos = new ArrayList<>();
                     for (Usuario u : usuarios) {
@@ -97,10 +111,38 @@ class PucTriculaApplication {
                         }
                     }
                     break;
-                    case 5:
-                    System.out.println("\nDisciplinas cadastradas e seus alunos:");
+                    case 6:
+                    System.out.println("Selecione um professor para atribuir a uma disciplina:");
+                    List<Professor> listaProfessores = new ArrayList<>();
+                    for (Usuario u : usuarios) {
+                        if (u instanceof Professor) {
+                            listaProfessores.add((Professor) u);
+                        }
+                    }
+                    for (int i = 0; i < listaProfessores.size(); i++) {
+                        System.out.println(i + ". " + listaProfessores.get(i).getNome());
+                    }
+                    int professorIndex = scanner.nextInt();
+                    scanner.nextLine();
+                    if (professorIndex >= 0 && professorIndex < listaProfessores.size()) {
+                        Professor professorSelecionado = listaProfessores.get(professorIndex);
+                        System.out.println("Selecione uma disciplina para atribuir ao professor:");
+                        for (int i = 0; i < disciplinas.size(); i++) {
+                            System.out.println(i + ". " + disciplinas.get(i).getNome());
+                        }
+                        int disciplinaIndex = scanner.nextInt();
+                        scanner.nextLine();
+                        if (disciplinaIndex >= 0 && disciplinaIndex < disciplinas.size()) {
+                            disciplinas.get(disciplinaIndex).atribuirProfessor(professorSelecionado);
+                            System.out.println("Professor " + professorSelecionado.getNome() + " atribuído à disciplina " + disciplinas.get(disciplinaIndex).getNome());
+                        }
+                    }
+                    break;
+                case 7:
+                    System.out.println("\nDisciplinas cadastradas, seus professores e alunos:");
                     for (Disciplina d : disciplinas) {
                         System.out.println("- " + d.getNome() + " (Créditos: " + d.getCreditos() + ")");
+                        System.out.println("  Professor: " + (d.getProfessor() != null ? d.getProfessor().getNome() : "Nenhum professor atribuído"));
                         List<Aluno> alunosMatriculados = d.getAlunosMatriculados();
                         if (alunosMatriculados.isEmpty()) {
                             System.out.println("  Nenhum aluno matriculado.");
@@ -112,7 +154,7 @@ class PucTriculaApplication {
                         }
                     }
                     break;
-                case 6:
+                case 8:
                     System.out.println("Encerrando sistema...");
                     scanner.close();
                     return;
