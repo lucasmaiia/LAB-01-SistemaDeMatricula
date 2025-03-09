@@ -48,7 +48,11 @@ public class Disciplina {
     }
 
     public void cancelarMatricula(Aluno aluno) {
-        alunosMatriculados.remove(aluno);
+        if (alunosMatriculados.remove(aluno)) {
+            System.out.println("Matrícula de " + aluno.getNome() + " na disciplina " + nome + " foi cancelada com sucesso.");
+        } else {
+            System.out.println("O aluno " + aluno.getNome() + " não está matriculado nesta disciplina.");
+        }
     }
 
     public boolean verificarAtivacao() {
