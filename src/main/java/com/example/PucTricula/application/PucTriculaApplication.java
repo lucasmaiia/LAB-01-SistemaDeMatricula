@@ -35,7 +35,7 @@ class PucTriculaApplication {
             usuarioLogado = realizarLogin(usuarios, scanner);
         } while (usuarioLogado == null);
 
-        while (true) {
+        while (usuarioLogado != null) {
             System.out.println("\n--- PUCTriculas ---\n");
             if(usuarioLogado instanceof Administrador){
                 System.err.println(">> Seja bem vindo ao PUCTricula Administrador!");
@@ -58,6 +58,7 @@ class PucTriculaApplication {
                 System.out.println("10. Visualizar Horários");
             }
             System.out.println("11. Sair");
+            System.out.println("12. Fazer logout");
             System.out.print("Escolha uma opção: ");
             int opcao = scanner.nextInt();
             scanner.nextLine();
@@ -115,6 +116,14 @@ class PucTriculaApplication {
                     System.out.println(">> Encerrando sistema...\n >> Obrigado!");
                     scanner.close();
                     return;
+                    case 12: 
+                    System.out.println(" >> Fazendo logout...");
+                    usuarioLogado = null;
+                    System.out.println("\n\n\n--- Seja bem vindo ao PUCTricula! ---\n >> Realize o seu login.");
+                    do {
+                        usuarioLogado = realizarLogin(usuarios, scanner);
+                    } while (usuarioLogado == null);
+                    break;
                 default:
                     System.out.println(">> Opção inválida, tente novamente.");
             }

@@ -163,4 +163,14 @@ public class Administrador extends Usuario {
         }
     }
 
+    public void atualizarInformacoes() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'atualizarInformacoes'");
+    }
+
+    public void gerarCurriculoSemestral() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'gerarCurriculoSemestral'");
+    }
+
 }
