@@ -9,7 +9,7 @@ public class Aluno extends Usuario {
     private List<Disciplina> disciplinasMatriculadas;
 
     public Aluno(String nome, String email, String senha) {
-        super(nome, email, senha);
+        super(tipo = "aluno",nome, email, senha);
         this.disciplinasMatriculadas = new ArrayList<>();
     }
 

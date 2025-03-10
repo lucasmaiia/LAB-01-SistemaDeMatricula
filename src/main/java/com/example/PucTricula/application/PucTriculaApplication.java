@@ -75,7 +75,7 @@ class PucTriculaApplication {
                     String senhaAluno = scanner.nextLine();
                     Usuario aluno = new Aluno(nomeAluno, emailAluno, senhaAluno);
                     usuarios.add(aluno);
-                    salvarUsuarios(usuarios);
+                    salvarUsuario(aluno);
                     System.out.println(">> Aluno cadastrado com sucesso!");
                     break;
                 case 2:
@@ -87,7 +87,7 @@ class PucTriculaApplication {
                     String senhaProfessor = scanner.nextLine();
                     Usuario professor = new Professor(nomeProfessor, emailProfessor, senhaProfessor);
                     usuarios.add(professor);
-                    salvarUsuarios(usuarios);
+                    salvarUsuario(professor);
                     System.out.println(">> Professor cadastrado com sucesso!");
                     break;
 
@@ -205,30 +205,46 @@ class PucTriculaApplication {
         }
     }
 
-    private static void salvarUsuarios(List<Usuario> usuarios) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_USUARIOS))) {
-            for (Usuario u : usuarios) {
-                writer.write(u.getNome() + "," + u.getEmail() + "," + u.getSenha());
-                writer.newLine();
-            }
+    private static void salvarUsuario(Usuario usuario) { 
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_USUARIOS, true))) {
+            writer.write(usuario.getTipo() + "," + usuario.getNome() + "," + usuario.getEmail() + "," + usuario.getSenha());
+            writer.newLine();
         } catch (IOException e) {
-            System.out.println("Erro ao salvar usuários: " + e.getMessage());
+            System.out.println("Erro ao salvar usuário: " + e.getMessage());
         }
     }
 
-    private static List<Usuario> carregarUsuarios() {
-        List<Usuario> usuarios = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_USUARIOS))) {
-            String linha;
-            while ((linha = reader.readLine()) != null) {
-                String[] dados = linha.split(",");
-                usuarios.add(new Aluno(dados[0], dados[1], dados[2]));
+private static List<Usuario> carregarUsuarios() {
+    List<Usuario> usuarios = new ArrayList<>();
+    try (BufferedReader reader = new BufferedReader(new FileReader(FILE_USUARIOS))) {
+        String linha;
+        while ((linha = reader.readLine()) != null) {
+            String[] dados = linha.split(",");
+            String tipo = dados[0]; 
+            String nome = dados[1];
+            String email = dados[2];
+            String senha = dados[3];
+
+            switch (tipo.toLowerCase()) {
+                case "aluno":
+                    usuarios.add(new Aluno(nome, email, senha));
+                    break;
+                case "professor":
+                    usuarios.add(new Professor(nome, email, senha));
+                    break;
+                case "administrador":
+                    usuarios.add(new Administrador(nome, email, senha));
+                    break;
+                default:
+                    System.out.println("Tipo de usuário desconhecido: " + tipo);
             }
-        } catch (IOException e) {
-            System.out.println("Nenhum usuário encontrado, iniciando lista vazia.");
         }
-        return usuarios;
+    } catch (IOException e) {
+        System.out.println("Nenhum usuário encontrado, iniciando lista vazia.");
     }
+    return usuarios;
+}
+    
 
     public static void salvarDisciplinas(List<Disciplina> disciplinas) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_DISCIPLINAS))) {
@@ -250,7 +266,7 @@ class PucTriculaApplication {
             while ((linha = reader.readLine()) != null) {
                 String[] dados = linha.split(",");
                 disciplinas.add(
-                        new Disciplina(dados[0], Integer.parseInt(dados[1]), LocalDate.parse(dados[2], formatter), 0));
+                        new Disciplina(dados[0], Integer.parseInt(dados[1]), LocalDate.parse(dados[3], formatter), 0));
             }
         } catch (IOException e) {
             System.out.println("Nenhuma disciplina encontrada, iniciando lista vazia.");

@@ -7,7 +7,7 @@ public class Professor extends Usuario {
     private List<Disciplina> disciplinasLecionadas;
 
     public Professor(String nome, String email, String senha) {
-        super(nome, email, senha);
+        super(tipo = "professor", nome, email, senha);
         this.disciplinasLecionadas = new ArrayList<>();
     }
 

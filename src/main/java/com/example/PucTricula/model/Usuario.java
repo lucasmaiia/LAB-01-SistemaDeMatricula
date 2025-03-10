@@ -3,9 +3,18 @@ package main.java.com.example.PucTricula.model;
 import java.io.Serializable;
 
 public abstract class Usuario implements Serializable {
+    protected static String tipo;
     private String nome;
     private String email;
     private String senha;
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
 
     public String getSenha() {
         return senha;
@@ -15,7 +24,8 @@ public abstract class Usuario implements Serializable {
         this.senha = senha;
     }
 
-    public Usuario(String nome, String email, String senha) {
+    public Usuario(String tipo, String nome, String email, String senha) {
+        this.tipo = tipo;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
