@@ -1,10 +1,7 @@
 package main.java.com.example.PucTricula.application;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -67,107 +64,26 @@ class PucTriculaApplication {
 
             switch (opcao) {
                 case 1:
-                    System.out.print(">> Nome: ");
-                    String nomeAluno = scanner.nextLine();
-                    System.out.print(">> Email: ");
-                    String emailAluno = scanner.nextLine();
-                    System.out.print(">> Senha: ");
-                    String senhaAluno = scanner.nextLine();
-                    Usuario aluno = new Aluno(nomeAluno, emailAluno, senhaAluno);
-                    usuarios.add(aluno);
-                    salvarUsuario(aluno);
-                    System.out.println(">> Aluno cadastrado com sucesso!");
-                    break;
-                case 2:
-                    System.out.print(">> Nome: ");
-                    String nomeProfessor = scanner.nextLine();
-                    System.out.print(">> Email: ");
-                    String emailProfessor = scanner.nextLine();
-                    System.out.print(">> Senha: ");
-                    String senhaProfessor = scanner.nextLine();
-                    Usuario professor = new Professor(nomeProfessor, emailProfessor, senhaProfessor);
-                    usuarios.add(professor);
-                    salvarUsuario(professor);
-                    System.out.println(">> Professor cadastrado com sucesso!");
-                    break;
-
-                case 3:
-                    System.out.println("\n>> Usuários cadastrados:");
-                    for (Usuario u : usuarios) {
-                        System.out.println("- " + u.getNome() + " (" + u.getEmail() + ")");
-                    }
-                    break;
-
-                case 4:
-                System.out.print(">> Nome da Disciplina: ");
-                String nomeDisciplina = scanner.nextLine();
-                System.out.print(">> Créditos: ");
-                int creditos = scanner.nextInt();
-                scanner.nextLine();
-                System.out.print(">> Valor mensal da disciplina: ");
-                double custo = scanner.nextDouble();
-                scanner.nextLine();
-                System.out.print(">> Data limite para matrícula (dd/MM/yyyy): ");
-                String dataLimiteInput = scanner.nextLine();
-                LocalDate dataLimite = LocalDate.parse(dataLimiteInput, formatter);
-                disciplinas.add(new Disciplina(nomeDisciplina, creditos, dataLimite, custo));
-                salvarDisciplinas(disciplinas);
-                System.out.println(">> Disciplina cadastrada com sucesso!");
+                ((Administrador) usuarioLogado).cadastrarAluno(usuarios, scanner);
                 break;
+                                
+                case 2: 
+                ((Administrador) usuarioLogado).cadastrarProfessor(usuarios, scanner);
+                break;
+                   
+                case 3:
+                ((Administrador) usuarioLogado).listarUsuarios(usuarios, scanner);
+                break;
+        
+                case 4:            
+                ((Administrador) usuarioLogado).cadastrarDisciplina(disciplinas, scanner);
+                break;
+                
                 case 5:
-                System.out.println(">> Selecione um aluno para matrícula:");
-                List<Aluno> alunos = new ArrayList<>();
-                for (Usuario u : usuarios) {
-                    if (u instanceof Aluno) {
-                        alunos.add((Aluno) u);
-                    }
-                }
-                for (int i = 0; i < alunos.size(); i++) {
-                    System.out.println(i + ". " + alunos.get(i).getNome());
-                }
-                int alunoIndex = scanner.nextInt();
-                scanner.nextLine();
-                if (alunoIndex >= 0 && alunoIndex < alunos.size()) {
-                    Aluno alunoSelecionado = alunos.get(alunoIndex);
-                    System.out.println(">> Selecione uma disciplina:");
-                    for (int i = 0; i < disciplinas.size(); i++) {
-                        System.out.println(i + ". " + disciplinas.get(i).getNome() + " (Custo: R$ " + disciplinas.get(i).getCusto() + ", Data limite: " + disciplinas.get(i).getDataLimiteMatricula().format(formatter) + ")");
-                    }
-                    int disciplinaIndex = scanner.nextInt();
-                    scanner.nextLine();
-                    if (disciplinaIndex >= 0 && disciplinaIndex < disciplinas.size()) {
-                        disciplinas.get(disciplinaIndex).matricularAluno(alunoSelecionado);
-                        salvarMatricula(alunoSelecionado.getNome(), disciplinas.get(disciplinaIndex).getNome());
-                    }
-                }
+                ((Administrador) usuarioLogado).atribuirAluno(usuarios, disciplinas, scanner);
                 break;
                 case 6:
-                    System.out.println(">> Selecione um professor para atribuir a uma disciplina:");
-                    List<Professor> listaProfessores = new ArrayList<>();
-                    for (Usuario u : usuarios) {
-                        if (u instanceof Professor) {
-                            listaProfessores.add((Professor) u);
-                        }
-                    }
-                    for (int i = 0; i < listaProfessores.size(); i++) {
-                        System.out.println(i + ". " + listaProfessores.get(i).getNome());
-                    }
-                    int professorIndex = scanner.nextInt();
-                    scanner.nextLine();
-                    if (professorIndex >= 0 && professorIndex < listaProfessores.size()) {
-                        Professor professorSelecionado = listaProfessores.get(professorIndex);
-                        System.out.println(">> Selecione uma disciplina para atribuir ao professor:");
-                        for (int i = 0; i < disciplinas.size(); i++) {
-                            System.out.println(i + ". " + disciplinas.get(i).getNome());
-                        }
-                        int disciplinaIndex = scanner.nextInt();
-                        scanner.nextLine();
-                        if (disciplinaIndex >= 0 && disciplinaIndex < disciplinas.size()) {
-                            disciplinas.get(disciplinaIndex).atribuirProfessor(professorSelecionado);
-                            System.out.println("Professor " + professorSelecionado.getNome()
-                                    + " atribuído à disciplina " + disciplinas.get(disciplinaIndex).getNome());
-                        }
-                    }
+                ((Administrador) usuarioLogado).atribuirProfessor(usuarios, disciplinas, scanner);
                     break;
                 case 7:
                     System.out.println("\n>> Disciplinas cadastradas, seus professores e alunos:");
@@ -205,15 +121,6 @@ class PucTriculaApplication {
         }
     }
 
-    private static void salvarUsuario(Usuario usuario) { 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_USUARIOS, true))) {
-            writer.write(usuario.getTipo() + "," + usuario.getNome() + "," + usuario.getEmail() + "," + usuario.getSenha());
-            writer.newLine();
-        } catch (IOException e) {
-            System.out.println("Erro ao salvar usuário: " + e.getMessage());
-        }
-    }
-
 private static List<Usuario> carregarUsuarios() {
     List<Usuario> usuarios = new ArrayList<>();
     try (BufferedReader reader = new BufferedReader(new FileReader(FILE_USUARIOS))) {
@@ -245,18 +152,6 @@ private static List<Usuario> carregarUsuarios() {
     return usuarios;
 }
     
-
-    public static void salvarDisciplinas(List<Disciplina> disciplinas) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_DISCIPLINAS))) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            for (Disciplina d : disciplinas) {
-                writer.write(d.getNome() + "," + d.getCreditos() + "," + d.getCusto() + "," + d.getDataLimiteMatricula().format(formatter));
-                writer.newLine();
-            }
-        } catch (IOException e) {
-            System.out.println("Erro ao salvar disciplinas: " + e.getMessage());
-        }
-    }
 
     public static List<Disciplina> carregarDisciplinas() {
         List<Disciplina> disciplinas = new ArrayList<>();
@@ -301,15 +196,6 @@ private static List<Usuario> carregarUsuarios() {
         }
     }
 
-    private static void salvarMatricula(String nomeAluno, String nomeDisciplina) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_MATRICULAS, true))) {
-            writer.write(nomeAluno + "," + nomeDisciplina);
-            writer.newLine();
-        } catch (IOException e) {
-
-            System.out.println("Erro ao salvar matrícula: " + e.getMessage());
-        }
-    }
     public static void calcularMensalidades(List<Usuario> usuarios, List<Disciplina> disciplinas) {
         System.out.println("\n--- Sistema de Cobrança ---");
         for (Usuario u : usuarios) {
