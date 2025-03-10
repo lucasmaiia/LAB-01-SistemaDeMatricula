@@ -52,6 +52,7 @@ class PucTriculaApplication {
             } else if(usuarioLogado instanceof Aluno){
                 System.out.println(">> Seja bem vindo ao PUCTricula " + usuarioLogado.getNome() + "!");
                 System.out.println("5. Matricular-se");
+                System.out.println("7. Listar Disciplinas, Professores e Alunos Matriculados");
                 System.out.println("9. Cancelar Matrícula");
             }else if(usuarioLogado instanceof Professor){
                 System.out.println(">> Seja bem vindo ao PUCTricula Professor(a)" + usuarioLogado.getNome() + "!");

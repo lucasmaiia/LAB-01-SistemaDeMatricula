@@ -38,7 +38,7 @@ Este projeto tem como objetivo informatizar o sistema de matrículas de uma univ
 
 ## Casos de Uso 
 
-![Diagrama de Casos de Uso](Diagramas/DCU_SistemaMatricula.jpg)
+![Diagrama de Casos de Uso](Diagramas/DCU_SistemaMatricula2.0.jpg)
 
 
 # Histórias de Usuário PUCTriculas
@@ -65,7 +65,7 @@ Este projeto tem como objetivo informatizar o sistema de matrículas de uma univ
 
 ## Diagrama de classes
 
-![Diagrama de Classes](Diagramas/diagrama_class.png)
+![Diagrama de Classes](Diagramas/diagrama_classe_att.png)
 
 #
 
