@@ -5,9 +5,12 @@ Este projeto tem como objetivo informatizar o sistema de matrículas de uma univ
 
 ## Funcionalidades
 
-### Secretaria da Universidade
-
-- **Gerar Currículo:** Permite à secretaria da universidade gerar o currículo para cada semestre.
+### Administrador
+- **Matricular-se em Disciplinas:** Permite aos administrador realizar matricula dos alunos nas disciplinas disponíveis para o semestre.
+- **Cancelar Matrícula:** Permite ao administrador cancelar matrículas feitas anteriormente.
+- **Consultar Disciplinas Disponíveis:** Permite ao administrador visualizar as disciplinas disponíveis para matrícula.
+- **Verificar Horários das Disciplinas:** Permite ao administrador verificar os horários das disciplinas.
+- **Verificar Status da Matrícula:** Permite aos administrador verificar o status de suas matrículas.
 - **Manter Informações de Disciplinas:** Permite à secretaria atualizar as informações sobre as disciplinas oferecidas.
 - **Manter Informações de Professores:** Permite à secretaria manter os dados dos professores atualizados.
 - **Manter Informações de Alunos:** Permite à secretaria atualizar as informações sobre os alunos.
@@ -17,9 +20,6 @@ Este projeto tem como objetivo informatizar o sistema de matrículas de uma univ
 - **Matricular-se em Disciplinas:** Permite aos alunos se matricular nas disciplinas disponíveis para o semestre.
 - **Cancelar Matrícula:** Permite aos alunos cancelar matrículas feitas anteriormente.
 - **Consultar Disciplinas Disponíveis:** Permite aos alunos visualizar as disciplinas disponíveis para matrícula.
-- **Verificar Horários das Disciplinas:** Permite aos alunos verificar os horários das disciplinas para planejar seu semestre.
-- **Verificar Status da Matrícula:** Permite aos alunos verificar o status de suas matrículas.
-- **Receber Notificações de Alterações:** Permite aos alunos receber notificações de alterações nas disciplinas matriculadas.
 
 ### Professores
 
