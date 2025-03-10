@@ -71,39 +71,39 @@ Este projeto tem como objetivo informatizar o sistema de matrículas de uma univ
 
 ## Estrutura dos diretórios
 ````
+LAB-01-SISTEMADEMATRICULA │
+├── Diagramas
 │
 ├── src
-|   ├──Diagramas
-|   |  ├──DCU_SistemaMatricula.jpg
-|   |  └──diagrama_class.png
-│   └── main
-│       ├── java
-│       │   └── com.example.PucTricula
-│       │       ├── application
-│       │       │   └── PucTriculaApplication.java
-│       │       ├── config
-│       │       ├── controller
-│       │       ├── model
-│       │       │   ├── Usuario.java
-│       │       │   ├── Aluno.java
-│       │       │   ├── Professor.java
-│       │       │   ├── Administrador.java
-│       │       │   ├── Curso.java
-│       │       │   └── Disciplina.java
-│       │       └── service
-│       └── resources
-|
+│ ├── main
+│ │ ├── java
+│ │ │ └── com.example.PucTricula
+│ │ │ ├── application
+│ │ │ │ ├── PucTriculaApplication.java
+│ │ │ ├── controller
+│ │ │ │ ├── AdministradorController.java
+│ │ │ │ ├── AlunoController.java
+│ │ │ │ ├── CursoController.java
+│ │ │ │ ├── DisciplinaController.java
+│ │ │ │ ├── ProfessorController.java
+│ │ │ ├── model
+│ │ │ │ ├── Administrador.java
+│ │ │ │ ├── Aluno.java
+│ │ │ │ ├── Curso.java
+│ │ │ │ ├── Disciplina.java
+│ │ │ │ ├── Professor.java
+│ │ │ │ ├── Usuario.java
+│ │ │ ├── view
+│ │ │ │ ├── View.java
+│
 
 ````
 
 ## Descrição das Pastas
 
 - **application/**: Contém a classe principal da aplicação.
-- **config/**: Arquivos de configuração da aplicação.
-- **controller/**: Contém os controladores REST para gerenciar as requisições dos usuários.
+- **controller/**: Contém os controladores responsáveis pelo gerenciamento das requisições dos usuários.
 - **model/**: Define as classes de modelo usadas na aplicação.
-- **repository/**: Interfaces para acesso ao banco de dados.
-- **service/**: Lógica de negócio da aplicação.
-- **resources/**: Arquivos de configuração, templates e arquivos estáticos.
-- **templates/**: Contém as páginas HTML da aplicação.
+- **view/**: Responsável pela exibição dos dados para o usuário.
+- **resources/**: Contém arquivos de configuração, templates e arquivos estáticos.
 #
