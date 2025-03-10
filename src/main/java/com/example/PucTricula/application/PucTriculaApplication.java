@@ -56,6 +56,7 @@ class PucTriculaApplication {
                 System.out.println("9. Cancelar Matrícula");
             }else if(usuarioLogado instanceof Professor){
                 System.out.println(">> Seja bem vindo ao PUCTricula Professor(a)" + usuarioLogado.getNome() + "!");
+                System.out.println("7. Listar Alunos e Disciplinas");
                 System.out.println("10. Visualizar Horários");
             }
             System.out.println("11. Sair");
